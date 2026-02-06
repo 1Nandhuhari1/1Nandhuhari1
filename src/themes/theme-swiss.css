@@ -1,0 +1,128 @@
+/* Minimalist Swiss Theme */
+:root {
+    /* Brand Colors - Monochrome */
+    --color-primary: #000000;
+    --color-primary-hover: #333333;
+    --color-secondary: #666666;
+    --color-accent: #000000;
+
+    /* Neutral Colors */
+    --color-bg-body: #FFFFFF;
+    --color-bg-card: #FFFFFF;
+    --color-text-main: #000000;
+    --color-text-muted: #666666;
+    --color-border: #000000;
+
+    /* Typography - Larger, Bolder */
+    --font-family-main: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-4xl: 3rem;
+
+    /* Spacing - More Whitespace */
+    --spacing-xs: 0.75rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+
+    /* Effects - Minimal */
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --transition-fast: 150ms ease;
+}
+
+body {
+    background: #FFFFFF;
+    color: #000000;
+    letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+}
+
+.card {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 0;
+    box-shadow: none;
+    padding: var(--spacing-xl);
+}
+
+.card:hover {
+    background: #F5F5F5;
+}
+
+.btn {
+    border-radius: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.btn-primary {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: 2px solid #000000;
+}
+
+.btn-primary:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+    transform: none;
+}
+
+.btn-outline {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.btn-outline:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.input {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 0;
+    color: #000000;
+    padding: var(--spacing-md);
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid #000000;
+    box-shadow: none;
+}
+
+.navbar {
+    background-color: #FFFFFF !important;
+    border-bottom: 2px solid #000000 !important;
+}
+
+.container {
+    max-width: 1000px;
+}
+
+/* Grid-based layouts */
+.landing-page section {
+    padding: var(--spacing-xl) 0 !important;
+}
