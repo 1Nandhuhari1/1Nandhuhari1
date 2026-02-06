@@ -6,21 +6,26 @@ import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import CreateResume from './pages/CreateResume';
 import TemplateGallery from './pages/TemplateGallery';
+import LoginPage from './pages/Auth/Login';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <ResumeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<LandingPage />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="create" element={<CreateResume />} />
-            <Route path="templates" element={<TemplateGallery />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ResumeProvider>
+    <AuthProvider>
+      <ResumeProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<LandingPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="create" element={<CreateResume />} />
+              <Route path="templates" element={<TemplateGallery />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ResumeProvider>
+    </AuthProvider>
   );
 }
 

@@ -48,7 +48,7 @@ const NoirTemplate = ({ data }) => {
                     color: '#ff69b4',
                     margin: '0 0 10px 0'
                 }}>
-                    {personalInfo.fullName || 'Anaisha Agarwal'}
+                    {personalInfo.fullName}
                 </h1>
                 <p style={{
                     fontSize: '16px',
@@ -57,7 +57,7 @@ const NoirTemplate = ({ data }) => {
                     color: '#eee',
                     margin: 0
                 }}>
-                    {personalInfo.jobTitle || 'Business Analyst'}
+                    {personalInfo.jobTitle}
                 </p>
             </header>
 
@@ -79,7 +79,7 @@ const NoirTemplate = ({ data }) => {
                         </h3>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
-                            {experience.length > 0 ? experience.map(exp => (
+                            {experience.map(exp => (
                                 <div key={exp.id}>
                                     <h4 style={{ margin: '0 0 5px 0', color: '#ccc', fontStyle: 'italic' }}>
                                         {exp.title}, {exp.company}
@@ -91,13 +91,7 @@ const NoirTemplate = ({ data }) => {
                                         {exp.description}
                                     </p>
                                 </div>
-                            )) : (
-                                <div>
-                                    <h4 style={{ margin: '0 0 5px 0', color: '#ccc', fontStyle: 'italic' }}>JUNIOR BUSINESS ANALYST, CORP</h4>
-                                    <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>2020 - 2022</div>
-                                    <p style={{ fontSize: '13px', color: '#aaa', margin: 0 }}>Data analysis and presenting business opportunities.</p>
-                                </div>
-                            )}
+                            ))}
                         </div>
                     </section>
 
@@ -115,15 +109,9 @@ const NoirTemplate = ({ data }) => {
                             SKILL
                         </h3>
                         <div style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.8' }}>
-                            {skills.length > 0 ? skills.map((skill, i) => (
+                            {skills.map((skill, i) => (
                                 <div key={i}>{skill}</div>
-                            )) : (
-                                <>
-                                    <div>Java</div>
-                                    <div>Python</div>
-                                    <div>Machine Learning</div>
-                                </>
-                            )}
+                            ))}
                         </div>
                     </section>
 
@@ -151,7 +139,7 @@ const NoirTemplate = ({ data }) => {
                 {/* Right Column */}
                 <div>
                     <div style={{ marginBottom: '40px', color: '#aaa', fontSize: '14px', fontStyle: 'italic' }}>
-                        "{personalInfo.summary || 'I am a highly passionate and career-oriented individual seeking challenging opportunities.'}"
+                        {personalInfo.summary && `"${personalInfo.summary}"`}
                     </div>
 
                     {/* Education */}
@@ -209,8 +197,8 @@ const NoirTemplate = ({ data }) => {
                         </section>
                     )}
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

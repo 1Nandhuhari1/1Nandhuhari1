@@ -2,9 +2,11 @@ import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { FileText, User, LogIn } from 'lucide-react';
 import ThemeSwitcher from '../components/ThemeSwitcher';
+import { useAuth } from '../context/AuthContext';
 
 const MainLayout = () => {
     const location = useLocation();
+    const { user, logout } = useAuth();
     const isDashboard = location.pathname.includes('/dashboard');
 
     return (
@@ -25,15 +27,24 @@ const MainLayout = () => {
 
                     <div className="nav-links" style={{ display: 'flex', gap: 'var(--spacing-md)', alignItems: 'center' }}>
                         <ThemeSwitcher />
-                        {isDashboard ? (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}>
-                                <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>Welcome, User</span>
-                                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <User size={18} />
+                        {user ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-md)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(79, 70, 229, 0.1)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 'bold' }}>
+                                        {user.email.substring(0, 2).toUpperCase()}
+                                    </div>
+                                    <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>{user.email}</span>
                                 </div>
+                                <button
+                                    onClick={logout}
+                                    className="btn btn-outline"
+                                    style={{ padding: '6px 12px', fontSize: '13px' }}
+                                >
+                                    Logout
+                                </button>
                             </div>
                         ) : (
-                            <Link to="/dashboard" className="btn btn-outline" style={{ display: 'flex', gap: '8px' }}>
+                            <Link to="/login" className="btn btn-outline" style={{ display: 'flex', gap: '8px' }}>
                                 <LogIn size={18} />
                                 <span>Sign In</span>
                             </Link>
@@ -57,7 +68,7 @@ const MainLayout = () => {
                 marginTop: 'auto'
             }}>
                 <div className="container">
-                    <p>© 2026 Resumer.com. Built for excellence.</p>
+                    <p>© 2026 Resumer.com. A polytechnic students initiative</p>
                 </div>
             </footer>
         </div>

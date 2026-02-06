@@ -4,7 +4,7 @@ import { parseResume } from '../utils/resumeParser';
 import { useResume } from '../context/ResumeContext';
 import { useNavigate } from 'react-router-dom';
 
-const ResumeUploader = () => {
+const ResumeUploader = ({ title = "Upload your resume to auto-fill", subtitle = "Drag and drop or click to upload PDF or DOCX" }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState(null);
@@ -38,10 +38,12 @@ const ResumeUploader = () => {
             const parsedData = await parseResume(file);
             console.log('Parsed Data:', parsedData);
             importResumeData(parsedData);
-            navigate('/create');
+            // Function to verify ATS Score, then Edit
+            // We'll navigate to /create, but maybe we can pass a state to open the ATS panel by default?
+            navigate('/create', { state: { fromUpload: true } });
         } catch (err) {
             console.error(err);
-            setError('Failed to parse resume. Please try again or create manually.');
+            setError(`Failed to parse resume: ${err.message || 'Unknown error'}`);
         } finally {
             setIsProcessing(false);
         }
@@ -112,10 +114,10 @@ const ResumeUploader = () => {
 
                     <div>
                         <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>
-                            Upload your resume to auto-fill
+                            {title}
                         </h3>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
-                            Drag and drop or click to upload PDF or DOCX
+                            {subtitle}
                         </p>
                     </div>
 

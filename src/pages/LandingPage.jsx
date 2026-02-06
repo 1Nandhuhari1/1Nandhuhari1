@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 import ResumeUploader from '../components/ResumeUploader';
 
+
 const LandingPage = () => {
     return (
         <div className="landing-page">
@@ -46,18 +47,35 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* Smart Upload Section */}
-            <section style={{ backgroundColor: '#f9fafb', padding: 'var(--spacing-xl) 0' }}>
+            {/* Resume Audit Section (ATS Check) */}
+            <section id="ats-audit" style={{ backgroundColor: '#f0fdf4', padding: 'var(--spacing-xl) 0', borderTop: '1px solid #dcfce7', borderBottom: '1px solid #dcfce7' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Already have a resume?</h2>
-                        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem' }}>
-                            Upload your existing PDF or DOCX to auto-fill your new resume.
+                        <div style={{
+                            display: 'inline-block',
+                            padding: '4px 12px',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            color: '#16a34a',
+                            borderRadius: '20px',
+                            fontWeight: '600',
+                            fontSize: 'var(--font-size-sm)',
+                            marginBottom: 'var(--spacing-md)'
+                        }}>
+                            Free Resume Audit
+                        </div>
+                        <h2 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Check ATS Score & Edit</h2>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+                            Upload your current resume template to check the ATS score and edit it.
                         </p>
                     </div>
-                    <ResumeUploader />
+                    <ResumeUploader
+                        title="Check Resume Compatibility"
+                        subtitle="Upload PDF or DOCX for a comprehensive ATS analysis"
+                    />
                 </div>
             </section>
+
+
 
             {/* Features Preview */}
             <section style={{ padding: 'var(--spacing-xl) 0' }}>
@@ -71,9 +89,26 @@ const LandingPage = () => {
                         {[
                             { title: 'AI Writer', desc: 'Auto-generate impactful descriptions with smart AI.' },
                             { title: 'ATS Optimized', desc: 'Templates designed to pass Applicant Tracking Systems.' },
-                            { title: 'Real-time Preview', desc: 'See changes instantly as you type and edit.' }
+                            { title: 'Real-time Preview', desc: 'See changes instantly as you type and edit.' },
+                            {
+                                title: 'ATS Score Check',
+                                desc: 'Get an instant 0-100 score with actionable feedback.',
+                                action: () => document.getElementById('ats-audit').scrollIntoView({ behavior: 'smooth' })
+                            }
                         ].map((feature, index) => (
-                            <div key={index} className="card" style={{ padding: 'var(--spacing-xl)' }}>
+                            <div
+                                key={index}
+                                className="card"
+                                style={{
+                                    padding: 'var(--spacing-xl)',
+                                    cursor: feature.action ? 'pointer' : 'default',
+                                    transition: 'transform 0.2s',
+                                    border: feature.action ? '2px solid rgba(79, 70, 229, 0.1)' : 'none'
+                                }}
+                                onClick={feature.action}
+                                onMouseEnter={(e) => feature.action && (e.currentTarget.style.transform = 'translateY(-5px)')}
+                                onMouseLeave={(e) => feature.action && (e.currentTarget.style.transform = 'translateY(0)')}
+                            >
                                 <div style={{
                                     width: '48px', height: '48px',
                                     backgroundColor: 'rgba(79, 70, 229, 0.1)',

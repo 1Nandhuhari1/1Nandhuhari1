@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Download, Check, Layout, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Download, Check, Layout, AlertTriangle, Share2 } from 'lucide-react';
 import PersonalInfoForm from '../components/forms/PersonalInfoForm';
 import ExperienceForm from '../components/forms/ExperienceForm';
 import EducationForm from '../components/forms/EducationForm';
@@ -17,8 +17,11 @@ import VibrantTemplate from '../components/templates/VibrantTemplate';
 import { useResume } from '../context/ResumeContext';
 import { calculateATSScore } from '../utils/atsScorer';
 
+import { useLocation } from 'react-router-dom';
+
 const CreateResume = () => {
-    const [activeStep, setActiveStep] = useState(0);
+    const location = useLocation();
+    const [activeStep, setActiveStep] = useState(location.state?.fromUpload ? 6 : 0); // Default to Review (index 6) if from upload
     const steps = [
         { title: 'Personal Info', component: <PersonalInfoForm /> },
         { title: 'Experience', component: <ExperienceForm /> },
@@ -106,8 +109,9 @@ const CreateResume = () => {
 
 // Preview & Template Selection
 const ResumePreview = () => {
-    const { resumeData, updateTemplate } = useResume();
-    const [showAtsAnalysis, setShowAtsAnalysis] = useState(false);
+    const { resumeData, updateTemplate, saveCurrentResume } = useResume();
+    const location = useLocation();
+    const [showAtsAnalysis, setShowAtsAnalysis] = useState(location.state?.fromUpload || false);
     const [isDownloading, setIsDownloading] = useState(false);
 
     const [atsResult, setAtsResult] = useState({ score: 0, issues: [], criticalIssues: [] });
@@ -142,6 +146,59 @@ const ResumePreview = () => {
             alert('PDF generation failed. Please try again.');
         } finally {
             setIsDownloading(false);
+        }
+    };
+
+    const handleShare = async () => {
+        if (!navigator.share) {
+            alert('Sharing is not supported on this browser context (requires HTTPS or mobile).');
+            return;
+        }
+
+        setIsDownloading(true);
+        const element = document.getElementById('resume-preview-content');
+        const opt = {
+            margin: 0,
+            filename: `${resumeData.personalInfo.fullName || 'Resume'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        try {
+            const html2pdf = (await import('html2pdf.js')).default;
+            const pdfBlob = await html2pdf().set(opt).from(element).output('blob');
+
+            const file = new File([pdfBlob], `${resumeData.personalInfo.fullName || 'Resume'}.pdf`, { type: 'application/pdf' });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: 'My Resume',
+                    text: 'Here is my updated resume.'
+                });
+            } else {
+                // Fallback for text share if files not supported
+                await navigator.share({
+                    title: 'My Resume',
+                    text: 'Check out my resume built with AI Resume Builder!',
+                    url: window.location.origin
+                });
+            }
+        } catch (e) {
+            console.error('Sharing failed', e);
+            // alert('Sharing failed or was cancelled.');
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
+    const handleSave = async () => {
+        const result = await saveCurrentResume();
+        if (result?.success) {
+            alert('Resume saved to your dashboard in the cloud!');
+        } else {
+            alert('Failed to save. Make sure you are logged in.');
         }
     };
 
@@ -180,7 +237,22 @@ const ResumePreview = () => {
                         onClick={downloadPDF}
                         disabled={isDownloading}
                     >
-                        {isDownloading ? 'Generating...' : 'Download PDF'} <Download size={18} style={{ marginLeft: '8px' }} />
+                        {isDownloading ? 'Processing...' : 'Download PDF'} <Download size={18} style={{ marginLeft: '8px' }} />
+                    </button>
+                    <button
+                        className="btn btn-outline"
+                        onClick={handleShare}
+                        disabled={isDownloading}
+                        style={{ display: 'flex', gap: '8px' }}
+                    >
+                        Share <Share2 size={18} />
+                    </button>
+                    <button
+                        className="btn btn-outline"
+                        onClick={handleSave}
+                        style={{ display: 'flex', gap: '8px' }}
+                    >
+                        Save <Check size={18} />
                     </button>
                     <button
                         className="btn btn-outline"

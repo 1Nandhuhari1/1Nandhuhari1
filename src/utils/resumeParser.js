@@ -2,7 +2,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import mammoth from 'mammoth';
 
 // Initialize PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
 /**
  * Main parser function that routes to specific handlers based on file type
@@ -157,6 +157,11 @@ const extractSections = (text) => {
             });
         }
     });
+
+    // Fallback: If no experience/education/skills found, put everything in Summary to avoid empty resume
+    if (indices.length === 0 && normalizedText.length > 50) {
+        resumeData.personalInfo.summary = normalizedText.substring(0, 800) + '... (Auto-import: Please manually review and categorize your data)';
+    }
 
     return resumeData;
 };

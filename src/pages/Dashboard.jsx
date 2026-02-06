@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, FileText, MoreVertical, Calendar, Edit2, Trash2, Layout } from 'lucide-react';
+import { useResume } from '../context/ResumeContext';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [resumes, setResumes] = useState([
-        { id: 1, title: 'Software Engineer Resume', lastEdited: '2 days ago', completion: 85 },
-        { id: 2, title: 'Product Manager Role', lastEdited: '1 week ago', completion: 100 },
-        { id: 3, title: 'Internship Application', lastEdited: '1 month ago', completion: 40 },
-    ]);
+    const { savedResumes, deleteResume, loadResume, clearCurrentResume, loadingResumes } = useResume();
+    const { user } = useAuth();
     const [openMenuId, setOpenMenuId] = useState(null);
 
     const handleCreate = () => {
+        clearCurrentResume(); // Start fresh
         navigate('/create');
     };
 
     const handleEdit = (resumeId) => {
-        // Navigate to builder to edit
+        loadResume(resumeId); // Load data
         navigate('/create');
         setOpenMenuId(null);
     };
 
     const handleDelete = (resumeId) => {
         if (window.confirm('Are you sure you want to delete this resume?')) {
-            setResumes(resumes.filter(r => r.id !== resumeId));
+            deleteResume(resumeId);
         }
         setOpenMenuId(null);
     };
@@ -37,7 +37,11 @@ const Dashboard = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-xl)' }}>
                 <div>
                     <h1 style={{ marginBottom: 'var(--spacing-xs)' }}>My Resumes</h1>
-                    <p style={{ color: 'var(--color-text-muted)' }}>Manage and edit your resume versions.</p>
+                    <p style={{ color: 'var(--color-text-muted)' }}>
+                        {savedResumes.length > 0
+                            ? `You have ${savedResumes.length} saved resume${savedResumes.length !== 1 ? 's' : ''}.`
+                            : 'Create your first resume to get started!'}
+                    </p>
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
                     <button
@@ -53,7 +57,14 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 'var(--spacing-lg)' }}>
+            {loadingResumes && (
+                <div style={{ textAlign: 'center', padding: 'var(--spacing-xl)', color: 'var(--color-primary)' }}>
+                    <div className="loading-spinner" style={{ margin: '0 auto var(--spacing-md)' }}></div>
+                    <p>Loading your resumes from the cloud...</p>
+                </div>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 'var(--spacing-lg)', opacity: loadingResumes ? 0.5 : 1 }}>
                 {/* Create New Card */}
                 <div
                     className="card"
@@ -84,7 +95,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Resume Cards */}
-                {resumes.map((resume) => (
+                {savedResumes.map((resume) => (
                     <div key={resume.id} className="card" style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '200px' }}>
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: 'var(--spacing-md)' }}>
                             <FileText size={48} color="var(--color-text-muted)" style={{ opacity: 0.5 }} />
