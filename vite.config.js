@@ -1,0 +1,28 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      manifest: {
+        name: 'AI Resume Builder',
+        short_name: 'ResumeAI',
+        description: 'Build professional resumes with AI',
+        theme_color: '#4F46E5',
+        icons: [
+          {
+            src: 'logo.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          }
+        ]
+      }
+    })
+  ],
+})
