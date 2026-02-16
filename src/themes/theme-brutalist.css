@@ -1,0 +1,135 @@
+/* Neo-Brutalism Theme */
+:root {
+    /* Brand Colors - Bold & Vibrant */
+    --color-primary: #FFD700;
+    /* Yellow */
+    --color-primary-hover: #FFC700;
+    --color-secondary: #FF006E;
+    /* Hot Pink */
+    --color-accent: #00F5FF;
+    /* Cyan */
+
+    /* Neutral Colors */
+    --color-bg-body: #FFFEF2;
+    --color-bg-card: #FFFFFF;
+    --color-text-main: #000000;
+    --color-text-muted: #333333;
+    --color-border: #000000;
+
+    /* Typography - Bold */
+    --font-family-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-4xl: 3rem;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Effects - Hard Shadows */
+    --shadow-sm: 4px 4px 0px #000000;
+    --shadow-md: 6px 6px 0px #000000;
+    --shadow-lg: 8px 8px 0px #000000;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --transition-fast: 100ms ease;
+}
+
+body {
+    background: #FFFEF2;
+    color: #000000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.card {
+    background: #FFFFFF;
+    border: 4px solid #000000;
+    border-radius: 0;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+}
+
+.card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px #000000;
+}
+
+.btn {
+    border-radius: 0;
+    font-weight: 800;
+    border: 3px solid #000000;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #000000;
+    border: 3px solid #000000;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000000;
+}
+
+.btn-outline {
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+    color: #000000;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-accent);
+    color: #000000;
+}
+
+.input {
+    background: #FFFFFF;
+    border: 3px solid #000000;
+    border-radius: 0;
+    color: #000000;
+    box-shadow: var(--shadow-sm);
+}
+
+.input:focus {
+    outline: none;
+    border: 3px solid #000000;
+    box-shadow: 4px 4px 0px var(--color-accent);
+}
+
+.navbar {
+    background-color: var(--color-primary) !important;
+    border-bottom: 4px solid #000000 !important;
+    box-shadow: 0 4px 0px #000000;
+}
+
+/* Colorful accents */
+.landing-page h1 {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
