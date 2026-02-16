@@ -7,7 +7,7 @@ const ProfessionalTemplate = ({ data }) => {
         <div style={{ padding: '40px 50px', backgroundColor: 'white', minHeight: '800px', color: '#111', fontFamily: "'Merriweather', serif" }}>
             {/* Header */}
             <header style={{ borderBottom: '2px solid #333', paddingBottom: '20px', marginBottom: '30px' }}>
-                <h1 style={{ fontSize: '36px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '5px' }}>{personalInfo.fullName}</h1>
+                <h1 style={{ fontSize: '36px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '5px', color: '#000000', fontWeight: '900' }}>{personalInfo.fullName}</h1>
                 <p style={{ fontSize: '18px', fontStyle: 'italic', marginBottom: '15px', color: '#555' }}>{personalInfo.jobTitle}</p>
                 <div style={{ fontSize: '14px', display: 'flex', gap: '15px', color: '#333' }}>
                     {personalInfo.email && <span>{personalInfo.email}</span>}
