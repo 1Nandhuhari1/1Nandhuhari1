@@ -6,7 +6,7 @@ const MinimalistTemplate = ({ data }) => {
     return (
         <div style={{ padding: '40px', backgroundColor: 'white', border: '1px solid #ddd', minHeight: '800px', color: '#333', fontFamily: 'Times New Roman, serif' }}>
             <header style={{ borderBottom: '1px solid #000', paddingBottom: '20px', marginBottom: '20px', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '28px', textTransform: 'uppercase', marginBottom: '10px' }}>{personalInfo.fullName}</h1>
+                <h1 style={{ fontSize: '28px', textTransform: 'uppercase', marginBottom: '10px', color: '#000000', fontWeight: '900' }}>{personalInfo.fullName}</h1>
                 <div style={{ fontSize: '14px', display: 'flex', justifyContent: 'center', gap: '15px' }}>
                     {personalInfo.email && <span>{personalInfo.email}</span>}
                     {personalInfo.phone && <span>| {personalInfo.phone}</span>}
