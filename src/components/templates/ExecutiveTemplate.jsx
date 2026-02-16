@@ -7,7 +7,7 @@ const ExecutiveTemplate = ({ data }) => {
         <div style={{ padding: '50px', backgroundColor: 'white', minHeight: '800px', color: '#0F172A', fontFamily: 'system-ui, sans-serif' }}>
 
             <div style={{ textAlign: 'center', borderBottom: '4px solid #0F172A', paddingBottom: '25px', marginBottom: '30px' }}>
-                <h1 style={{ fontSize: '32px', textTransform: 'uppercase', letterSpacing: '3px', fontWeight: '800', margin: '0 0 10px 0' }}>{personalInfo.fullName}</h1>
+                <h1 style={{ fontSize: '32px', textTransform: 'uppercase', letterSpacing: '3px', fontWeight: '900', margin: '0 0 10px 0', color: '#000000' }}>{personalInfo.fullName}</h1>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', fontSize: '14px', fontWeight: '500', color: '#334155' }}>
                     {personalInfo.email && <span>EMAIL: {personalInfo.email}</span>}
                     {personalInfo.phone && <span>PHONE: {personalInfo.phone}</span>}
