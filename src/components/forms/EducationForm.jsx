@@ -26,6 +26,8 @@ const EducationForm = () => {
                 description: ''
             });
             setIsAdding(false);
+        } else {
+            alert('Please fill in both School and Degree fields.');
         }
     };
 
