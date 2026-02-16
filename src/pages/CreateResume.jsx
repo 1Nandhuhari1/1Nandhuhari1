@@ -311,7 +311,7 @@ const ResumePreview = () => {
                 </div>
             </div>
 
-            <div id="resume-preview-content" style={{ border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+            <div id="resume-preview-content" style={{ border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', overflow: 'hidden', backgroundColor: 'white', color: 'initial' }}>
                 {renderTemplate()}
             </div>
 
@@ -321,3 +321,4 @@ const ResumePreview = () => {
 }
 
 export default CreateResume;
+```
