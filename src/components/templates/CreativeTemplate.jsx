@@ -80,14 +80,15 @@ const CreativeTemplate = ({ data }) => {
                 )}
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h3 style={{ fontSize: '24px', fontWeight: '900', color: '#1F2937', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ width: '12px', height: '12px', backgroundColor: '#FCD34D' }}></span> EDUCATION
+                    <h3 style={{ fontSize: '24px', fontWeight: '900', color: '#04070be2', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ width: '12px', height: '12px', backgroundColor: '#4dfcdfff' }}></span> EDUCATION
                     </h3>
                     {education.map(edu => (
-                        <div key={edu.id} style={{ marginBottom: '15px' }}>
+                        <div key={edu.id} style={{ marginBottom: '20px' }}>
                             <div style={{ fontSize: '16px', fontWeight: 'bold' }}>{edu.school}</div>
-                            <div style={{ color: '#4B5563' }}>{edu.degree}, {edu.field}</div>
+                            <div style={{ color: '#4B5563' }}>{edu.degree}{edu.field && `, ${edu.field}`}</div>
                             <div style={{ fontSize: '13px', color: '#9CA3AF' }}>{edu.startDate} - {edu.endDate}</div>
+                            {edu.description && <p style={{ margin: '8px 0 0 0', fontSize: '14px', color: '#6B7280', lineHeight: '1.5' }}>{edu.description}</p>}
                         </div>
                     ))}
                 </section>

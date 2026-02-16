@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import CreateResume from './pages/CreateResume';
 import TemplateGallery from './pages/TemplateGallery';
 import LoginPage from './pages/Auth/Login';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -15,9 +16,23 @@ function App() {
       <ResumeProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<MainLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+
+            {/* Protected Application Routes */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <MainLayout />
+                </ProtectedRoute>
+              }
+            >
+              {/* Landing component is now the default "Home" for logged-in users, 
+                  or we could make Dashboard the default. 
+                  User requested: "After user login only show the main interface (Resumer.com the interface)" 
+                  which usually implies the LandingPage content is now the "Home" of the app.
+              */}
               <Route index element={<LandingPage />} />
-              <Route path="login" element={<LoginPage />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="create" element={<CreateResume />} />
               <Route path="templates" element={<TemplateGallery />} />

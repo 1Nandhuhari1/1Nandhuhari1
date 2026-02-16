@@ -145,6 +145,25 @@ const VibrantTemplate = ({ data }) => {
                             letterSpacing: '1px',
                             color: '#c026d3',
                             marginBottom: '15px'
+                        }}>Education</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            {education.map(edu => (
+                                <div key={edu.id}>
+                                    <div style={{ fontWeight: '600', fontSize: '14px', color: '#1f2937' }}>{edu.degree}</div>
+                                    <div style={{ fontSize: '13px', color: '#db2777' }}>{edu.school}</div>
+                                    <div style={{ fontSize: '12px', color: '#9ca3af' }}>{edu.startDate} - {edu.endDate}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section style={{ marginBottom: '30px' }}>
+                        <h3 style={{
+                            fontSize: '15px',
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px',
+                            color: '#c026d3',
+                            marginBottom: '15px'
                         }}>Expertise Skills</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {skills.map((skill, i) => (

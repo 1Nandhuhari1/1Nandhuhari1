@@ -129,8 +129,16 @@ const extractSections = (text) => {
     indices.forEach((item, i) => {
         const start = item.index;
         const end = indices[i + 1] ? indices[i + 1].index : normalizedText.length;
-        // +20 to skip the header itself roughly
-        let content = normalizedText.substring(start, end).replace(item.section, '');
+        let content = normalizedText.substring(start, end);
+
+        // Remove the actual matched header keyword from the beginning
+        const sectionKeywords = markers[item.section];
+        for (const keyword of sectionKeywords) {
+            if (content.toLowerCase().startsWith(keyword)) {
+                content = content.substring(keyword.length).trim();
+                break;
+            }
+        }
 
         // Very basic parsing of the content string into arrays for specific sections
         if (item.section === 'skills') {

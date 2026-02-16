@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Upload, FileText, Check, AlertCircle, Loader } from 'lucide-react';
 import { parseResume } from '../utils/resumeParser';
 import { useResume } from '../context/ResumeContext';
@@ -10,6 +10,7 @@ const ResumeUploader = ({ title = "Upload your resume to auto-fill", subtitle = 
     const [error, setError] = useState(null);
     const { importResumeData } = useResume();
     const navigate = useNavigate();
+    const fileInputRef = useRef(null);
 
     const handleDrag = useCallback((e) => {
         e.preventDefault();
@@ -82,11 +83,11 @@ const ResumeUploader = ({ title = "Upload your resume to auto-fill", subtitle = 
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            onClick={() => document.getElementById('resume-upload-input').click()}
+            onClick={() => fileInputRef.current?.click()}
         >
             <input
                 type="file"
-                id="resume-upload-input"
+                ref={fileInputRef}
                 style={{ display: 'none' }}
                 accept=".pdf,.docx"
                 onChange={handleChange}
@@ -113,10 +114,10 @@ const ResumeUploader = ({ title = "Upload your resume to auto-fill", subtitle = 
                     </div>
 
                     <div>
-                        <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>
+                        <h3 style={{ fontSize: '18px', marginBottom: '8px', color: '#1f2937' }}>
                             {title}
                         </h3>
-                        <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
+                        <p style={{ color: '#4b5563', fontSize: '14px' }}>
                             {subtitle}
                         </p>
                     </div>

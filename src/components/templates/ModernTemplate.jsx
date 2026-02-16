@@ -84,11 +84,15 @@ const ModernTemplate = ({ data }) => {
                             {education.map(edu => (
                                 <div key={edu.id}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                                        <h4 style={{ margin: 0, fontSize: '18px', color: '#2d3748' }}>{edu.degree}</h4>
-                                        <span style={{ fontSize: '14px', color: '#718096', fontWeight: 'bold' }}>{edu.graduationDate}</span>
+                                        <h4 style={{ margin: 0, fontSize: '18px', color: '#2d3748' }}>
+                                            {edu.degree} {edu.field && `in ${edu.field}`}
+                                        </h4>
+                                        <span style={{ fontSize: '14px', color: '#718096', fontWeight: 'bold' }}>
+                                            {edu.startDate} - {edu.endDate}
+                                        </span>
                                     </div>
                                     <div style={{ color: '#4fd1c5', fontWeight: '600', marginBottom: '5px' }}>{edu.school}</div>
-                                    <p style={{ margin: 0, color: '#4a5568', fontSize: '14px', lineHeight: '1.5' }}>{edu.description}</p>
+                                    {edu.description && <p style={{ margin: 0, color: '#4a5568', fontSize: '14px', lineHeight: '1.5' }}>{edu.description}</p>}
                                 </div>
                             ))}
                         </div>

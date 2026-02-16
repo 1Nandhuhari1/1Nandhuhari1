@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useResume } from '../../context/ResumeContext';
-import { Camera, Upload, X } from 'lucide-react';
+import { Camera, Upload, X, Wand2 } from 'lucide-react';
 
 const PersonalInfoForm = () => {
     const { resumeData, updatePersonalInfo } = useResume();
     const { personalInfo } = resumeData;
+    const [isEnhancing, setIsEnhancing] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,6 +25,31 @@ const PersonalInfoForm = () => {
 
     const removePhoto = () => {
         updatePersonalInfo({ photo: null });
+    };
+
+    const handleEnhance = () => {
+        setIsEnhancing(true);
+        const title = (personalInfo.jobTitle || '').toLowerCase();
+        let aiSummary = "";
+
+        if (title.includes('developer') || title.includes('engineer') || title.includes('programmer') || title.includes('coder')) {
+            aiSummary = `Innovative ${personalInfo.jobTitle} with a passion for building scalable and efficient software solutions. Proficient in modern technologies and dedicated to writing clean, maintainable code. Proven track record of delivering high-quality projects on time and collaborating effectively with cross-functional teams.`;
+        } else if (title.includes('designer') || title.includes('creative') || title.includes('artist') || title.includes('ui') || title.includes('ux')) {
+            aiSummary = `Creative ${personalInfo.jobTitle} with a strong eye for detail and a passion for user-centric design. Experienced in translating complex requirements into intuitive and visually stunning interfaces. Adept at using modern design tools to bring ideas to life and enhance user experiences.`;
+        } else if (title.includes('student') || title.includes('intern') || title.includes('graduate')) {
+            aiSummary = `Motivated ${personalInfo.jobTitle} eager to launch a career in the industry. Fast learner with a strong academic background and a collaborative mindset. Passionate about applying theoretical knowledge to real-world problems and continuously developing new skills.`;
+        } else if (title.includes('manager') || title.includes('lead') || title.includes('head') || title.includes('director')) {
+            aiSummary = `Results-oriented ${personalInfo.jobTitle} with extensive experience in leading teams and driving project success. Skilled in strategic planning, resource management, and fostering a collaborative team environment. Committed to delivering value and achieving business goals.`;
+        } else if (title.includes('sales') || title.includes('marketing') || title.includes('account')) {
+            aiSummary = `Dynamic ${personalInfo.jobTitle} with a proven history of driving revenue growth and building strong client relationships. Skilled in market analysis, strategic communication, and executing effective campaigns. Dedicated to exceeding targets and contributing to business expansion.`;
+        } else {
+            aiSummary = `Dedicated ${personalInfo.jobTitle || 'professional'} with a proven history of success. Highly organized and detail-oriented, with strong problem-solving skills. Committed to continuous learning and contributing to organizational growth in a dynamic environment.`;
+        }
+
+        setTimeout(() => {
+            updatePersonalInfo({ summary: aiSummary });
+            setIsEnhancing(false);
+        }, 1500);
     };
 
     return (
@@ -163,24 +189,29 @@ const PersonalInfoForm = () => {
 
             <div className="form-group" style={{ marginTop: 'var(--spacing-md)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-xs)' }}>
-                    <label className="label" style={{ marginBottom: 0 }}>Professional Summary</label>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                        <select
-                            className="input"
-                            style={{ padding: '4px 8px', fontSize: '12px', width: 'auto', height: 'auto' }}
-                            onChange={(e) => {
-                                if (e.target.value) {
-                                    updatePersonalInfo({ summary: e.target.value });
-                                    e.target.value = ""; // Reset dropdown
-                                }
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <label className="label" style={{ marginBottom: 0 }}>Professional Summary</label>
+                        <button
+                            type="button"
+                            onClick={handleEnhance}
+                            disabled={isEnhancing}
+                            style={{
+                                background: 'linear-gradient(90deg, #4f46e5, #ec4899)',
+                                border: 'none',
+                                color: 'white',
+                                fontSize: '11px',
+                                padding: '4px 8px',
+                                borderRadius: '12px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                fontWeight: '600',
+                                boxShadow: '0 2px 4px rgba(79, 70, 229, 0.2)'
                             }}
                         >
-                            <option value="">✨ Select a Suggestion...</option>
-                            <option value="Motivated and detail-oriented Diploma student in Computer Hardware Engineering with hands-on experience in AI & ML app development through a government-backed internship. Skilled in Python, JavaScript, HTML, CSS, MongoDB, and hardware prototyping with Arduino. Strong foundation in PC building, hardware maintenance, and full-stack app development using modern frameworks. Creative problem-solver with a passion for designing bold, user-friendly interfaces and building practical tools for students and job seekers. Recognized for persistence in debugging, structured learning, and collaborative teamwork. Actively seeking entry-level opportunities in software, hardware, and AI/ML engineering to contribute technical expertise and innovative solutions.">Hardware & AI Student (Yours)</option>
-                            <option value="Experienced software developer with over 5 years of experience in building scalable web applications. Proficient in JavaScript, React, and Node.js. Passionate about writing clean, maintainable code and mentoring junior developers.">Experienced Developer</option>
-                            <option value="Recent graduate with a strong academic background in Computer Science. Eager to launch a career in software engineering. Fast learner with excellent problem-solving skills and a collaborative mindset.">Recent Graduate</option>
-                            <option value="Creative and detail-oriented designer with a passion for user-centric design. Skilled in Adobe Creative Suite, Figma, and prototyping tools. Proven ability to translate business requirements into intuitive design solutions.">Creative Designer</option>
-                        </select>
+                            <Wand2 size={12} /> {isEnhancing ? 'Writing...' : 'AI Write'}
+                        </button>
                     </div>
                 </div>
                 <textarea

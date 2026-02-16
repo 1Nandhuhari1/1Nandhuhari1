@@ -194,8 +194,9 @@ const ElegantTemplateRevised = ({ data }) => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', fontSize: '13px' }}>
                             {education.map(edu => (
                                 <div key={edu.id}>
-                                    <div style={{ fontWeight: '600' }}>{edu.degree}</div>
-                                    <div>{edu.school}, {edu.graduationDate}</div>
+                                    <div style={{ fontWeight: '600' }}>{edu.degree}{edu.field && `, ${edu.field}`}</div>
+                                    <div>{edu.school}, {edu.startDate} - {edu.endDate}</div>
+                                    {edu.description && <p style={{ fontSize: '12px', color: '#666', marginTop: '4px', fontStyle: 'italic' }}>{edu.description}</p>}
                                 </div>
                             ))}
                         </div>

@@ -54,10 +54,11 @@ const ExecutiveTemplate = ({ data }) => {
                 <section>
                     <h3 style={{ backgroundColor: '#0F172A', color: 'white', padding: '5px 10px', fontSize: '14px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', display: 'inline-block', marginBottom: '15px' }}>Education</h3>
                     {education.map(edu => (
-                        <div key={edu.id} style={{ marginBottom: '10px' }}>
+                        <div key={edu.id} style={{ marginBottom: '15px' }}>
                             <div style={{ fontWeight: '800', fontSize: '15px' }}>{edu.school}</div>
-                            <div style={{ fontSize: '14px' }}>{edu.degree}, {edu.field}</div>
+                            <div style={{ fontSize: '14px' }}>{edu.degree}{edu.field && `, ${edu.field}`}</div>
                             <div style={{ fontSize: '13px', color: '#64748B' }}>{edu.startDate} - {edu.endDate}</div>
+                            {edu.description && <p style={{ fontSize: '14px', marginTop: '5px', lineHeight: '1.5', margin: 0 }}>{edu.description}</p>}
                         </div>
                     ))}
                 </section>

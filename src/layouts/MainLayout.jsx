@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { FileText, User, LogIn } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import { useAuth } from '../context/AuthContext';
 
@@ -10,41 +10,84 @@ const MainLayout = () => {
     const isDashboard = location.pathname.includes('/dashboard');
 
     return (
-        <div className="layout-root">
+        <div className="layout-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             {/* Navigation */}
             <nav className="navbar" style={{
-                borderBottom: '1px solid var(--color-border)',
+                position: 'sticky',
+                top: 0,
+                zIndex: 100,
+                borderBottom: '1px solid rgba(0, 255, 255, 0.1)',
                 padding: 'var(--spacing-md) 0',
-                backgroundColor: 'var(--color-bg-card)'
+                backgroundColor: 'rgba(20, 24, 32, 0.8)',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.3s ease'
             }}>
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-xs)', fontSize: 'var(--font-size-xl)', fontWeight: 'bold', color: 'var(--color-text-main)' }}>
-                        <div style={{ backgroundColor: 'var(--color-primary)', color: 'white', padding: '6px', borderRadius: '8px' }}>
-                            <FileText size={24} />
-                        </div>
-                        <span>Resumer.com</span>
+                    <Link to="/" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--spacing-xs)',
+                        textDecoration: 'none',
+                        position: 'relative',
+                        zIndex: 1
+                    }}>
+                        <img src="/logo.svg" alt="Resumer.com Logo" style={{ width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(0 0 8px rgba(0, 255, 255, 0.3))' }} />
+                        <span style={{
+                            fontSize: '1.5rem',
+                            fontWeight: '800',
+                            background: 'linear-gradient(to right, #fff, #b0b8c0)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            letterSpacing: '-0.5px'
+                        }}>Resumer<span style={{ color: 'var(--color-primary)' }}>.ai</span></span>
                     </Link>
 
                     <div className="nav-links" style={{ display: 'flex', gap: 'var(--spacing-md)', alignItems: 'center' }}>
                         <ThemeSwitcher />
                         {user ? (
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-md)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}>
-                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(79, 70, 229, 0.1)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 'bold' }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--spacing-sm)',
+                                    background: 'rgba(255, 255, 255, 0.05)',
+                                    padding: '4px 12px 4px 4px',
+                                    borderRadius: '50px',
+                                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                                }}>
+                                    <div style={{
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '50%',
+                                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+                                        color: '#000',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '12px',
+                                        fontWeight: 'bold'
+                                    }}>
                                         {user.email.substring(0, 2).toUpperCase()}
                                     </div>
-                                    <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>{user.email}</span>
+                                    <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-main)', fontWeight: '500' }}>Account</span>
                                 </div>
                                 <button
                                     onClick={logout}
                                     className="btn btn-outline"
-                                    style={{ padding: '6px 12px', fontSize: '13px' }}
+                                    style={{ padding: '8px 16px', fontSize: '13px', borderRadius: '30px', borderWidth: '1px' }}
                                 >
                                     Logout
                                 </button>
                             </div>
                         ) : (
-                            <Link to="/login" className="btn btn-outline" style={{ display: 'flex', gap: '8px' }}>
+                            <Link to="/login" className="btn btn-primary" style={{
+                                display: 'flex',
+                                gap: '8px',
+                                alignItems: 'center',
+                                padding: '8px 20px',
+                                borderRadius: '30px',
+                                fontSize: '0.9rem'
+                            }}>
                                 <LogIn size={18} />
                                 <span>Sign In</span>
                             </Link>
@@ -54,21 +97,25 @@ const MainLayout = () => {
             </nav>
 
             {/* Main Content */}
-            <main style={{ minHeight: 'calc(100vh - 140px)' }}>
+            <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Outlet />
             </main>
 
             {/* Footer */}
             <footer style={{
-                backgroundColor: 'var(--color-bg-card)',
-                borderTop: '1px solid var(--color-border)',
-                padding: 'var(--spacing-lg) 0',
+                backgroundColor: 'rgba(20, 24, 32, 0.95)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                padding: 'var(--spacing-xl) 0',
                 textAlign: 'center',
                 color: 'var(--color-text-muted)',
-                marginTop: 'auto'
+                backdropFilter: 'blur(10px)'
             }}>
-                <div className="container">
-                    <p>© 2026 Resumer.com. A polytechnic students initiative</p>
+                <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
+                        <img src="/logo.svg" alt="Logo" style={{ width: '32px', height: '32px', opacity: 0.7 }} />
+                        <span style={{ fontWeight: '600' }}>Resumer.ai</span>
+                    </div>
+                    <p style={{ fontSize: '0.9rem' }}>© 2026 Resumer.ai. Empowering careers with AI intelligence.</p>
                 </div>
             </footer>
         </div>

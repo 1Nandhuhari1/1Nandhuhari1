@@ -159,12 +159,15 @@ const NoirTemplate = ({ data }) => {
                             {education.map(edu => (
                                 <div key={edu.id}>
                                     <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>
-                                        {edu.startDate} - {edu.endDate || edu.graduationDate}
+                                        {edu.startDate} - {edu.endDate}
                                     </div>
                                     <h4 style={{ margin: '0 0 2px 0', color: '#ccc', textTransform: 'uppercase' }}>
                                         {edu.school}
                                     </h4>
-                                    <div style={{ fontSize: '13px', color: '#aaa' }}>{edu.degree}</div>
+                                    <div style={{ fontSize: '13px', color: '#aaa' }}>
+                                        {edu.degree}{edu.field && `, ${edu.field}`}
+                                    </div>
+                                    {edu.description && <p style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>{edu.description}</p>}
                                 </div>
                             ))}
                         </div>

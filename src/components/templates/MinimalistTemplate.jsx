@@ -55,10 +55,10 @@ const MinimalistTemplate = ({ data }) => {
                         <div key={edu.id} style={{ marginBottom: '15px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '15px' }}>
                                 <span>{edu.school}</span>
-                                <span>{edu.graduationDate}</span>
+                                <span>{edu.startDate} - {edu.endDate}</span>
                             </div>
-                            <div style={{ fontSize: '14px' }}>{edu.degree}</div>
-                            <p style={{ fontSize: '14px', marginTop: '5px', lineHeight: '1.5' }}>{edu.description}</p>
+                            <div style={{ fontSize: '14px' }}>{edu.degree} {edu.field && `in ${edu.field}`}</div>
+                            {edu.description && <p style={{ fontSize: '14px', marginTop: '5px', lineHeight: '1.5' }}>{edu.description}</p>}
                         </div>
                     ))}
                 </section>

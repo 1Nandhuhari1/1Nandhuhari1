@@ -57,8 +57,9 @@ const ProfessionalTemplate = ({ data }) => {
                     {education.map(edu => (
                         <div key={edu.id} style={{ marginBottom: '15px' }}>
                             <div style={{ fontWeight: 'bold', fontSize: '15px' }}>{edu.school}</div>
-                            <div style={{ fontSize: '14px' }}>{edu.degree} in {edu.field}</div>
+                            <div style={{ fontSize: '14px' }}>{edu.degree} {edu.field && `in ${edu.field}`}</div>
                             <div style={{ fontSize: '13px', fontStyle: 'italic', marginTop: '2px' }}>{edu.startDate} - {edu.endDate}</div>
+                            {edu.description && <p style={{ fontSize: '14px', marginTop: '5px', lineHeight: '1.5', whiteSpace: 'pre-line' }}>{edu.description}</p>}
                         </div>
                     ))}
                 </div>
