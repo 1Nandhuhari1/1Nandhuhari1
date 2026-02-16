@@ -15,7 +15,7 @@ const EducationForm = () => {
     });
 
     const handleSave = () => {
-        if (newEdu.school && newEdu.degree) {
+        if (newEdu.school.trim()) {
             addItem('education', newEdu);
             setNewEdu({
                 school: '',
@@ -27,7 +27,7 @@ const EducationForm = () => {
             });
             setIsAdding(false);
         } else {
-            alert('Please fill in both School and Degree fields.');
+            alert('Please enter a School or University name.');
         }
     };
 
