@@ -132,12 +132,15 @@ const ResumePreview = () => {
 
     const downloadPDF = async () => {
         setIsDownloading(true);
+        // Force a small delay to ensure rendering is complete
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         const element = document.getElementById('resume-preview-content');
         const opt = {
             margin: 0,
             filename: `${resumeData.personalInfo.fullName || 'Resume'}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { scale: 2, useCORS: true, logging: true },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
@@ -145,11 +148,11 @@ const ResumePreview = () => {
             const html2pdf = (await import('html2pdf.js')).default;
             await html2pdf().set(opt).from(element).save();
         } catch (e) {
-            console.error('PDF generation failed', e);
-            alert('PDF generation failed. Please try again.');
+            console.error('PDF generation failed:', e);
+            alert(`PDF generation failed: ${e.message || 'Unknown error'}. Please try again.`);
         } finally {
             setIsDownloading(false);
-            // Show feedback modal after download attempt (success or fail, but usually success if no error caught)
+            // Show feedback modal after download attempt
             setTimeout(() => setShowFeedback(true), 1000);
         }
     };
