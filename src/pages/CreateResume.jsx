@@ -107,12 +107,15 @@ const CreateResume = () => {
     );
 };
 
+import FeedbackModal from '../components/FeedbackModal';
+
 // Preview & Template Selection
 const ResumePreview = () => {
     const { resumeData, updateTemplate, saveCurrentResume } = useResume();
     const location = useLocation();
     const [showAtsAnalysis, setShowAtsAnalysis] = useState(location.state?.fromUpload || false);
     const [isDownloading, setIsDownloading] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
 
     const [atsResult, setAtsResult] = useState({ score: 0, issues: [], criticalIssues: [] });
 
@@ -146,6 +149,8 @@ const ResumePreview = () => {
             alert('PDF generation failed. Please try again.');
         } finally {
             setIsDownloading(false);
+            // Show feedback modal after download attempt (success or fail, but usually success if no error caught)
+            setTimeout(() => setShowFeedback(true), 1000);
         }
     };
 
@@ -309,6 +314,8 @@ const ResumePreview = () => {
             <div id="resume-preview-content" style={{ border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
                 {renderTemplate()}
             </div>
+
+            <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
         </div>
     )
 }
