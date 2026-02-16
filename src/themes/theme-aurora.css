@@ -1,6 +1,6 @@
 /* Aurora Fluid Theme - Light Mode */
 :root {
-    /* Aurora Fluid Colors (Slightly darker for visibility on light bg) */
+    /* Aurora Fluid Colors */
     --color-primary: #008B8B;
     /* Dark Cyan */
     --color-primary-hover: #00CED1;
@@ -9,12 +9,13 @@
     --color-accent: #228B22;
     /* Forest Green */
     --color-violet: #8130bc;
-    /* Indigo */
+    /* Violet (User preference kept) */
 
-    /* Neutral Colors - Light */
+    /* Neutral Colors - Light Backgrounds */
     --color-bg-body: #FDF5E6;
     /* Old Lace */
-    --color-bg-card: rgba(255, 255, 255, 0.7);
+    --color-bg-card: rgba(255, 255, 255, 0.9);
+    /* High opacity for contrast */
     --color-text-main: #1A202C;
     /* Dark Slate */
     --color-text-muted: #4A5568;
@@ -37,7 +38,7 @@
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
 
-    /* Effects - Fluid & Smooth */
+    /* Effects */
     --shadow-sm: 0 0 15px rgba(0, 139, 139, 0.1);
     --shadow-md: 0 0 25px rgba(0, 139, 139, 0.2);
     --shadow-lg: 0 0 40px rgba(0, 139, 139, 0.3);
@@ -49,30 +50,15 @@
     --glass-blur: blur(20px);
 }
 
-/* Aurora Gradient Animation */
-@keyframes aurora {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 body {
-    background: #FDF5E6;
+    background: #FDF5E6 !important;
     background-image:
         radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(238, 130, 238, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.2) 0%, transparent 50%);
+        radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.2) 0%, transparent 50%) !important;
     background-size: 200% 200%;
     animation: aurora 15s ease infinite;
-    color: var(--color-text-main);
+    color: #1A202C !important;
     will-change: background-position;
 }
 
@@ -82,8 +68,8 @@ h3,
 h4,
 h5,
 h6 {
-    text-shadow: none;
-    color: #2D3748;
+    text-shadow: none !important;
+    color: #1A202C !important;
 }
 
 a:hover {
@@ -93,7 +79,7 @@ a:hover {
 .btn-primary {
     background: linear-gradient(135deg, #00CED1 0%, #BA55D3 50%, #FF69B4 100%);
     background-size: 200% 200%;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     box-shadow: 0 4px 15px rgba(0, 139, 139, 0.3);
     animation: aurora 8s ease infinite;
 }
@@ -107,26 +93,27 @@ a:hover {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: var(--glass-blur);
     border: 2px solid var(--color-primary);
-    color: var(--color-primary);
+    color: var(--color-primary) !important;
     box-shadow: 0 0 10px rgba(0, 139, 139, 0.1);
 }
 
 .btn-outline:hover {
     background: rgba(0, 206, 209, 0.1);
     border-color: var(--color-secondary);
-    color: var(--color-secondary);
+    color: var(--color-secondary) !important;
     box-shadow: 0 0 15px rgba(199, 21, 133, 0.3);
     transform: translateY(-2px);
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9) !important;
     backdrop-filter: var(--glass-blur);
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: var(--radius-lg);
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.05),
         inset 0 0 20px rgba(255, 255, 255, 0.5);
+    color: #1A202C !important;
 }
 
 .card:hover {
@@ -139,14 +126,14 @@ a:hover {
 
 .input {
     border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: var(--glass-blur);
-    color: var(--color-text-main);
+    color: #1A202C !important;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
 }
 
 .input:focus {
-    background: #FFFFFF;
+    background: #FFFFFF !important;
     box-shadow:
         0 0 15px rgba(0, 206, 209, 0.25),
         inset 0 0 5px rgba(0, 206, 209, 0.1);
@@ -155,8 +142,9 @@ a:hover {
 }
 
 .label {
-    text-shadow: none;
+    text-shadow: none !important;
     font-weight: 600;
+    color: #1A202C !important;
 }
 
 /* Performance additions */
