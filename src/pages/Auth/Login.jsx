@@ -36,7 +36,7 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
 
-        const result = verifyOtp(otp);
+        const result = await verifyOtp(otp);
         if (result.success) {
             navigate(from, { replace: true });
         } else {

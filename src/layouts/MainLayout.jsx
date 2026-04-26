@@ -7,7 +7,6 @@ import { useAuth } from '../context/AuthContext';
 const MainLayout = () => {
     const location = useLocation();
     const { user, logout } = useAuth();
-    const isDashboard = location.pathname.includes('/dashboard');
 
     return (
         <div className="layout-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -60,7 +59,7 @@ const MainLayout = () => {
                                         height: '32px',
                                         borderRadius: '50%',
                                         background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
-                                        color: '#000',
+                                        color: '#620505ff',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',

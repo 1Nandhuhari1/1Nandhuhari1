@@ -149,7 +149,7 @@ const extractSections = (text) => {
         } else if (item.section === 'experience') {
             // Providing a single "bulk" experience item for the user to edit later is safer than trying to regex complex dates/companies
             resumeData.experience.push({
-                id: Date.now(),
+                id: crypto.randomUUID(),
                 title: 'Imported Experience',
                 company: 'Please Edit',
                 startDate: '',
@@ -158,7 +158,7 @@ const extractSections = (text) => {
             });
         } else if (item.section === 'education') {
             resumeData.education.push({
-                id: Date.now(),
+                id: crypto.randomUUID(),
                 degree: 'Imported Education',
                 school: content.substring(0, 100),
                 graduationDate: ''

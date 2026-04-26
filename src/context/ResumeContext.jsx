@@ -167,12 +167,10 @@ export const ResumeProvider = ({ children }) => {
         }));
     };
 
-    // ... (rest of the update functions unchanged)
-
     const addExperience = (exp) => {
         setResumeData(prev => ({
             ...prev,
-            experience: [...prev.experience, { ...exp, id: Date.now() }]
+            experience: [...prev.experience, { ...exp, id: crypto.randomUUID() }]
         }));
     };
 
@@ -193,7 +191,14 @@ export const ResumeProvider = ({ children }) => {
     const addItem = (section, item) => {
         setResumeData(prev => ({
             ...prev,
-            [section]: [...prev[section], { ...item, id: Date.now() }]
+            [section]: [...prev[section], { ...item, id: crypto.randomUUID() }]
+        }));
+    };
+
+    const updateItem = (section, id, updatedItem) => {
+        setResumeData(prev => ({
+            ...prev,
+            [section]: prev[section].map(item => item.id === id ? { ...item, ...updatedItem } : item)
         }));
     };
 
@@ -241,6 +246,7 @@ export const ResumeProvider = ({ children }) => {
             updateExperience,
             addItem,
             removeItem,
+            updateItem,
             updateSkills,
             updateTemplate,
             importResumeData,
