@@ -13,8 +13,8 @@ import ElegantTemplate from './templates/ElegantTemplate';
 import VibrantTemplate from './templates/VibrantTemplate';
 
 import FeedbackModal from './FeedbackModal';
-import { useResume } from '../../context/ResumeContext';
-import { calculateATSScore } from '../../utils/atsScorer';
+import { useResume } from '../context/ResumeContext';
+import { calculateATSScore } from '../utils/atsScorer';
 
 const ResumePreview = () => {
     const { resumeData, updateTemplate, saveCurrentResume } = useResume();

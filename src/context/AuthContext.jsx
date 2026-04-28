@@ -86,11 +86,39 @@ export const AuthProvider = ({ children }) => {
             console.error('Failed to send OTP:', error);
             // Translate raw API errors into user-friendly messages
             const status = error?.status;
-            if (status === 404 || error?.text?.toLowerCase().includes('account not found')) {
-                return { success: false, error: 'Email service configuration error. Please contact the administrator.' };
+            const errorText = (error?.text || '').toLowerCase();
+
+            if (
+                status === 404 ||
+                errorText.includes('account not found') ||
+                errorText.includes('no such account')
+            ) {
+                return {
+                    success: false,
+                    error: 'Unable to send login code — email service is not properly configured. Please try again later or contact support.'
+                };
             }
-            if (status === 422 || error?.text?.toLowerCase().includes('invalid')) {
-                return { success: false, error: 'Invalid email service configuration. Please check EmailJS settings.' };
+            if (
+                status === 401 ||
+                errorText.includes('forbidden') ||
+                errorText.includes('unauthorized') ||
+                errorText.includes('invalid user') ||
+                errorText.includes('invalid public key')
+            ) {
+                return {
+                    success: false,
+                    error: 'Email service authentication failed. Please contact support.'
+                };
+            }
+            if (
+                status === 422 ||
+                errorText.includes('invalid') ||
+                errorText.includes('template')
+            ) {
+                return {
+                    success: false,
+                    error: 'Email template is not configured correctly. Please contact support.'
+                };
             }
             const errorMsg = error?.text || error?.message || 'Failed to send login code. Please try again.';
             return { success: false, error: errorMsg };
