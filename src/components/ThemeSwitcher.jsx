@@ -38,7 +38,7 @@ const ThemeSwitcher = () => {
 
     // Handle theme changes
     useEffect(() => {
-        const loadTheme = async () => {
+        const loadTheme = () => {
             // Remove known theme stylesheets
             const existingThemes = document.querySelectorAll('link[data-theme]');
             existingThemes.forEach(link => link.remove());
@@ -47,46 +47,30 @@ const ThemeSwitcher = () => {
             if (currentTheme !== 'default') {
                 setIsLoading(true);
 
-                try {
-                    // Check if theme file is accessible
-                    const themeUrl = `/themes/theme-${currentTheme}.css`;
-                    const response = await fetch(themeUrl, { method: 'HEAD' });
+                const themeUrl = `/themes/theme-${currentTheme}.css`;
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = themeUrl;
+                link.setAttribute('data-theme', currentTheme);
 
-                    if (!response.ok) {
-                        throw new Error(`Theme file not found: ${themeUrl}`);
-                    }
-
-                    const link = document.createElement('link');
-                    link.rel = 'stylesheet';
-                    link.href = themeUrl;
-                    link.setAttribute('data-theme', currentTheme);
-
-                    // Handle successful load
-                    link.onload = () => {
-                        setIsLoading(false);
-                        const themeName = themes.find(t => t.id === currentTheme)?.name || currentTheme;
-                        showNotification(`${themeName} theme applied!`, 'success');
-                    };
-
-                    // Handle load error
-                    link.onerror = () => {
-                        setIsLoading(false);
-                        console.error(`Failed to load theme: ${currentTheme}`);
-                        showNotification('Failed to load theme. Reverting to default.', 'error');
-                        // Fallback to default
-                        setCurrentTheme('default');
-                        localStorage.setItem('selectedTheme', 'default');
-                    };
-
-                    document.head.appendChild(link);
-                } catch (error) {
+                // Handle successful load
+                link.onload = () => {
                     setIsLoading(false);
-                    console.error('Theme loading error:', error);
-                    showNotification('Theme not available. Using default.', 'error');
+                    const themeName = themes.find(t => t.id === currentTheme)?.name || currentTheme;
+                    showNotification(`${themeName} theme applied!`, 'success');
+                };
+
+                // Handle load error
+                link.onerror = () => {
+                    setIsLoading(false);
+                    console.error(`Failed to load theme: ${currentTheme}`);
+                    showNotification('Failed to load theme. Reverting to default.', 'error');
                     // Fallback to default
                     setCurrentTheme('default');
                     localStorage.setItem('selectedTheme', 'default');
-                }
+                };
+
+                document.head.appendChild(link);
             } else {
                 setIsLoading(false);
                 showNotification('Default theme applied!', 'success');
